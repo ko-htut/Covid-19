@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
       return countryFromJson(projetcList.body);
     }
 
-    var date = new DateTime.fromMicrosecondsSinceEpoch(1584643039642);
+    var date = new DateTime.fromMicrosecondsSinceEpoch(1584658750503);
     return Scaffold(
       body: Center(
         child: Column(
@@ -46,9 +46,9 @@ class HomePage extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              Text('Cases - 237283'),
-                              Text('Deaths - 9837'),
-                              Text("Recovered - 86675"),
+                              Text('Cases - 244739'),
+                              Text('Deaths - 10024'),
+                              Text("Recovered - 87407"),
                               Text("Update Time - $date")
                             ],
                           ),
@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Container(
-                height: MediaQuery.of(context).size.height - 240,
+                height: MediaQuery.of(context).size.height - 230,
                 child: FutureBuilder(
                   future: getProjectDetails(),
                   builder: (context, projectSnap) {
@@ -75,11 +75,19 @@ class HomePage extends StatelessWidget {
                       headerWidgets: _getTitleWidget(),
                       leftSideItemBuilder: (BuildContext context, int index) {
                         return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Container(
                               child: Text(projectSnap.data[index].country,
-                                  style: TextStyle(color: Colors.black)),
-                              width: 100,
+                                  style: TextStyle(
+                                    color:
+                                        (projectSnap.data[index].todayDeaths >
+                                                projectSnap.data[index].active
+                                            ? Colors.red
+                                            : Colors.green),
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              width: 75,
                               height: 52,
                               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                               alignment: Alignment.centerLeft,
@@ -89,6 +97,7 @@ class HomePage extends StatelessWidget {
                       },
                       rightSideItemBuilder: (BuildContext context, int index) {
                         return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Container(
                               child: Text(
@@ -185,15 +194,15 @@ class HomePage extends StatelessWidget {
 
   List<Widget> _getTitleWidget() {
     return [
-      _getTitleItemWidget('Country', 100),
+      _getTitleItemWidget('Country', 75),
       _getTitleItemWidget('Cases', 80),
-      _getTitleItemWidget('todayCases', 80),
-      _getTitleItemWidget('deaths', 80),
-      _getTitleItemWidget('todayDeaths', 80),
-      _getTitleItemWidget('recovered', 80),
-      _getTitleItemWidget('active', 80),
-      _getTitleItemWidget('critical', 80),
-      _getTitleItemWidget('casesPerOneMillion', 80),
+      _getTitleItemWidget('Today Cases', 80),
+      _getTitleItemWidget('Deaths', 80),
+      _getTitleItemWidget('Today Deaths', 80),
+      _getTitleItemWidget('Recovered', 80),
+      _getTitleItemWidget('Active', 80),
+      _getTitleItemWidget('Critical', 80),
+      _getTitleItemWidget('Cases Per OneMillion', 80),
     ];
   }
 
