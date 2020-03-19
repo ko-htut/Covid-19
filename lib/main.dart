@@ -9,8 +9,6 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AppProvider()),
-      
-       
       ],
       child: MyApp(),
     ),
@@ -29,7 +27,9 @@ class MyApp extends StatelessWidget {
           title: Constants.appName,
           theme: appProvider.theme,
           home: HomePage(),
-         
+         routes: <String, WidgetBuilder>{
+            // '/MainScreen': (context) => MainScreen(),
+          },
         );
       },
     );
